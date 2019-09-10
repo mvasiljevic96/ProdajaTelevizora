@@ -1,0 +1,49 @@
+﻿@model ProdajaTelevizora.ViewModels.TelevizorFormViewModel
+@{
+    ViewBag.Title = "TelevizorForm";
+}
+
+@*@if (Model.Televizor.Id == 0)
+{
+    <h3>Dodaj televizor</h3>
+}
+else
+{
+    <h3>Izmijeni televizor</h3>
+}*@
+
+@using (Html.BeginForm("Save", "Televizori", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(t => t.Televizor.Naziv, "Naziv")
+        @Html.TextBoxFor(t => t.Televizor.Naziv, new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.Televizor.Naziv)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Televizor.DijagonalaEkrana, "Dijagonala ekrana")
+        @Html.TextBoxFor(t => t.Televizor.DijagonalaEkrana, new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.Televizor.DijagonalaEkrana)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Televizor.Dimenzije, "Dimenzije")
+        @Html.TextBoxFor(t => t.Televizor.Dimenzije, new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.Televizor.Dimenzije)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Televizor.TehnologijaEkrana.Id, "Tehnologija ekrana")
+        @Html.DropDownListFor(t => t.Televizor, new SelectList(Model.TehnlogijeEkrana, "Id", "Naziv"), "Izaberite tehnologiju ekrana", new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.Televizor.Naziv)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => t.Televizor.Cijena, "Cijena")
+        @Html.TextBoxFor(t => t.Televizor.Cijena, new { @class = "form-control" })
+        @Html.ValidationMessageFor(t => t.Televizor.Cijena)
+    </div>
+
+    @Html.HiddenFor(f => f.Televizor.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-black">Sačuvaj</button>
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ProdajaTelevizora.Models.Televizor>
+
+@{
+    ViewBag.Title = "Televizori";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Televizori</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Televizor</th>
+            <th>Dijagonala ekrana</th>
+            <th>Dimenzije</th>
+            <th>Tehnologija ekrana</th>
+            <th>Cijena</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var televizor in Model)
+        {
+            <tr>
+                <td>@televizor.Naziv</td>
+                <td>@televizor.DijagonalaEkrana</td>
+                <td>@televizor.Dimenzije</td>
+                <td>@televizor.TehnologijaEkrana.Naziv</td>
+                <td>@televizor.Cijena</td>
+
+                <td>
+                    @using (Html.BeginForm("Edit", "Televizori", new { id = televizor.Id }))
+                    {
+                        <button type="submit" class="btn btn-black">Edit</button>
+                    }
+                </td>
+                <td class="akcije">
+                    @using (Html.BeginForm("Delete", "Televizori", new { id = televizor.Id }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-black">Delete</button>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+   <button class="btn btn-black">@Html.ActionLink("Dodaj televizor", "New", "Televizori")</button>

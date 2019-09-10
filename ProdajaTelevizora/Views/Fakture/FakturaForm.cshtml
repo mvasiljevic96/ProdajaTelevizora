@@ -1,0 +1,41 @@
+﻿@model ProdajaTelevizora.ViewModels.FakturaFormViewModel
+@{
+    ViewBag.Title = "FakturaForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Fakture.Id == 0)
+{
+    <h2>Dodaj fakturu</h2>
+}
+else
+{
+    <h2>Izmijeni fakturu</h2>
+}
+
+@using (Html.BeginForm("Save", "Fakture", FormMethod.Post))
+{
+
+    <div class="form-group">
+        @Html.LabelFor(f => f.Fakture.Kupac, "Kupac")
+        @Html.DropDownListFor(f => f.Fakture.Kupac, new SelectList(Model.Kupci, "Id", "Ime"), "Izaberi kupca.", new { @class = "form-control" })
+        @Html.ValidationMessageFor(f => f.Fakture.Kupac)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(f => f.Fakture.Televizor, "Televizor")
+        @Html.DropDownListFor(f => f.Fakture.Televizor, new SelectList(Model.Televizori, "Id", "Naziv"), "Izaberi televizor.", new { @class = "form-control" })
+        @Html.ValidationMessageFor(f => f.Fakture.Televizor)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(f => f.Fakture.DatumKupovine, "Datum kupovine")
+        @Html.TextBoxFor(f => f.Fakture.DatumKupovine, "{0:dd MMM yyyy}",new { @class = "form-control" })
+        @Html.ValidationMessageFor(f => f.Fakture.DatumKupovine)
+    </div>
+
+
+
+    @Html.HiddenFor(f => f.Fakture.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-black">Sačuvaj</button>
+
+}

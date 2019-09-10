@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ProdajaTelevizora.Models.Kupac>
+
+@{
+    ViewBag.Title = "Kupci";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kupci</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Adresa</th>
+            <th>Broj telefona</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kupac in Model)
+        {
+            <tr>
+                <td>@kupac.Ime</td>
+                <td>@kupac.Adresa</td>
+                <td>@kupac.BrojTelefona</td>
+
+                <td>
+                    @using (Html.BeginForm("Edit", "Kupci", new { id = kupac.Id }))
+                    {
+                        <button type="submit" class="btn btn-black">Edit</button>
+                    }
+                </td>
+                <td class="akcije">
+                    @using (Html.BeginForm("Delete", "Kupci", new { id = kupac.Id }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-black">Delete</button>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+
+ <button class="btn btn-black">@Html.ActionLink("Dodaj kupca", "New", "Kupci")</button>

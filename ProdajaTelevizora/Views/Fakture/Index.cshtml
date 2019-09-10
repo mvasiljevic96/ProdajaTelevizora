@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ProdajaTelevizora.Models.Faktura>
+
+@{
+    ViewBag.Title = "Fakture";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Fakture</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Kupac</th>
+            <th>Televizor</th>
+            <th>Datum kupovine</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var faktura in Model)
+        {
+            <tr>
+                <td>@faktura.Kupac.Ime</td>
+                <td>@faktura.Televizor.Naziv</td>
+                <td>@faktura.DatumKupovine</td>
+
+                <td>
+                    @using (Html.BeginForm("Edit", "Fakture", new { id = faktura.Id }))
+                    {
+                        <button type="submit" class="btn btn-black">Edit</button>
+                    }
+                </td>
+                <td class="akcije">
+                    @using (Html.BeginForm("Delete", "Fakture", new { id = faktura.Id }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-black">Delete</button>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+<button class="btn btn-black">@Html.ActionLink("Dodaj fakturu", "New", "Fakture")</button>
+
